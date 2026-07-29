@@ -43,8 +43,8 @@ PaperWritingAgent 是一个计划中的论文写作辅助智能体项目，主�
 - [x] 完成 README 初版
 - [x] 设计论文大纲生成 Prompt 原型
 - [x] 完成论文大纲生成示例
+- [x] 尝试使用 Python 实现最小原型
 - [ ] 学习 Hello-Agents 经典范式
-- [ ] 尝试使用 Python 实现最小原型
 - [ ] 完成引用检查模块示例
 
 ## 后续计划
