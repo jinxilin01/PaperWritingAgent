@@ -1,21 +1,92 @@
 """A minimal paper outline generator for PaperWritingAgent.
 
-This script is the first Python prototype of the project. It takes a research
-topic from user input and prints a fixed but reusable academic paper outline.
+This script is an early Python prototype of the project. It takes a research
+topic from user input, identifies a rough research direction, and prints a
+structured academic paper outline.
 """
 
 
-def generate_title_suggestions(topic):
+def detect_research_direction(topic):
+    """Detect a rough research direction based on keywords in the topic."""
+    topic_lower = topic.lower()
+
+    if "cad" in topic_lower or "3d" in topic_lower or "机械" in topic:
+        return "LLM + CAD / 3D 智能设计方向"
+
+    if "agent" in topic_lower or "智能体" in topic or "多智能体" in topic:
+        return "Agent / 多智能体方向"
+
+    if "引用" in topic or "citation" in topic_lower or "reference" in topic_lower:
+        return "论文引用检查方向"
+
+    if "文献" in topic or "literature" in topic_lower:
+        return "文献检索与综述整理方向"
+
+    return "通用论文写作辅助方向"
+
+
+def generate_title_suggestions(topic, direction):
     """Return three possible paper titles for the given topic."""
     return [
         f"{topic}方法研究",
-        f"面向{topic}的论文写作辅助流程设计",
+        f"面向{direction}的论文写作辅助流程设计",
         f"基于智能体思想的{topic}研究规划原型设计",
+    ]
+
+
+def generate_literature_directions(direction):
+    """Return recommended literature search directions."""
+    if "CAD" in direction or "3D" in direction:
+        return [
+            "Text-to-CAD generation",
+            "LLM for CAD code generation",
+            "Multi-agent CAD design",
+            "Tool-using LLM for engineering design",
+            "Parametric 3D model generation",
+        ]
+
+    if "Agent" in direction or "多智能体" in direction:
+        return [
+            "ReAct agent framework",
+            "Plan-and-Solve prompting",
+            "Multi-agent collaboration",
+            "Tool-using agents",
+            "Agent evaluation methods",
+        ]
+
+    if "引用" in direction:
+        return [
+            "Citation checking",
+            "Reference matching",
+            "Academic writing tools",
+            "Bibliography management",
+            "Retrieval-augmented generation for citation support",
+        ]
+
+    if "文献" in direction:
+        return [
+            "Literature retrieval",
+            "Research paper summarization",
+            "Academic survey generation",
+            "Keyword extraction",
+            "Paper recommendation systems",
+        ]
+
+    return [
+        "Academic writing assistance",
+        "Paper outline generation",
+        "Research planning",
+        "LLM-assisted writing",
+        "Agent-based workflow design",
     ]
 
 
 def generate_outline(topic):
     """Generate a structured paper outline for the given topic."""
+    direction = detect_research_direction(topic)
+    titles = generate_title_suggestions(topic, direction)
+    literature_directions = generate_literature_directions(direction)
+
     sections = [
         {
             "name": "第一章 引言",
@@ -43,13 +114,12 @@ def generate_outline(topic):
         },
     ]
 
-    titles = generate_title_suggestions(topic)
-
     output = []
     output.append("=" * 60)
-    output.append("PaperWritingAgent: 论文大纲生成原型")
+    output.append("PaperWritingAgent: 论文大纲生成原型 v2")
     output.append("=" * 60)
     output.append(f"研究主题：{topic}")
+    output.append(f"识别方向：{direction}")
     output.append("")
 
     output.append("一、可能的论文题目")
@@ -64,10 +134,8 @@ def generate_outline(topic):
     output.append("")
 
     output.append("三、建议补充检索的文献方向")
-    output.append(f"- {topic} 的基础概念和应用背景")
-    output.append(f"- {topic} 相关的最新研究论文")
-    output.append("- Agent、工具调用、任务规划等相关方法")
-    output.append("- 与该主题相关的案例、实验或应用场景")
+    for item in literature_directions:
+        output.append(f"- {item}")
     output.append("")
 
     output.append("四、后续写作建议")
