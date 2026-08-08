@@ -1,8 +1,8 @@
 """A minimal paper outline generator for PaperWritingAgent.
 
 This script is an early Python prototype of the project. It takes a research
-topic from user input, identifies a rough research direction, and prints a
-structured academic paper outline.
+topic from user input, identifies a rough research direction, prints a
+structured academic paper outline, and saves the result as a Markdown file.
 """
 
 
@@ -115,30 +115,39 @@ def generate_outline(topic):
     ]
 
     output = []
-    output.append("=" * 60)
-    output.append("PaperWritingAgent: 论文大纲生成原型 v2")
-    output.append("=" * 60)
-    output.append(f"研究主题：{topic}")
-    output.append(f"识别方向：{direction}")
+    output.append("# PaperWritingAgent 论文大纲生成结果")
+    output.append("")
+    output.append(f"## 研究主题")
+    output.append("")
+    output.append(topic)
+    output.append("")
+    output.append(f"## 识别方向")
+    output.append("")
+    output.append(direction)
     output.append("")
 
-    output.append("一、可能的论文题目")
+    output.append("## 一、可能的论文题目")
+    output.append("")
     for index, title in enumerate(titles, start=1):
         output.append(f"{index}. {title}")
     output.append("")
 
-    output.append("二、论文整体结构与写作目标")
-    for section in sections:
-        output.append(f"- {section['name']}")
-        output.append(f"  写作目标：{section['goal']}")
+    output.append("## 二、论文整体结构与写作目标")
     output.append("")
+    for section in sections:
+        output.append(f"### {section['name']}")
+        output.append("")
+        output.append(f"写作目标：{section['goal']}")
+        output.append("")
 
-    output.append("三、建议补充检索的文献方向")
+    output.append("## 三、建议补充检索的文献方向")
+    output.append("")
     for item in literature_directions:
         output.append(f"- {item}")
     output.append("")
 
-    output.append("四、后续写作建议")
+    output.append("## 四、后续写作建议")
+    output.append("")
     output.append("- 先缩小研究主题，避免选题过大。")
     output.append("- 优先阅读摘要、引言、方法图和结论。")
     output.append("- 将文献按研究方向分类，再整理相关工作。")
@@ -147,8 +156,14 @@ def generate_outline(topic):
     return "\n".join(output)
 
 
+def save_outline_to_file(outline, filename="generated_outline.md"):
+    """Save the generated outline to a Markdown file."""
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(outline)
+
+
 def main():
-    """Read a topic from the terminal and print the generated outline."""
+    """Read a topic, generate an outline, print it, and save it to a file."""
     topic = input("请输入研究主题：").strip()
 
     if not topic:
@@ -156,7 +171,11 @@ def main():
         print("未输入研究主题，使用默认主题：LLM 辅助 CAD 智能设计\n")
 
     outline = generate_outline(topic)
+
     print(outline)
+
+    save_outline_to_file(outline)
+    print("\n论文大纲已保存到 generated_outline.md")
 
 
 if __name__ == "__main__":
