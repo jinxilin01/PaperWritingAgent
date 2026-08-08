@@ -34,6 +34,23 @@ PaperWritingAgent 是一个计划中的论文写作辅助智能体项目，主�
 
 检查正文引用和参考文献之间是否存在缺失、不对应或格式不规范的问题。
 
+## 使用方法
+
+当前项目提供了一个最小 Python 原型：
+
+- 文件路径：src/outline_generator.py
+- 功能：输入研究主题，生成论文大纲，并保存为 generated_outline.md
+
+运行方式：
+
+python src/outline_generator.py
+
+运行后，根据提示输入研究主题，例如：
+
+LLM 辅助 CAD 智能设计
+
+程序会输出论文题目建议、论文结构、章节写作目标、文献补充方向和后续写作建议，并将结果保存到 generated_outline.md。
+
 ## 当前进度
 
 - [x] 明确项目主题
@@ -44,6 +61,7 @@ PaperWritingAgent 是一个计划中的论文写作辅助智能体项目，主�
 - [x] 设计论文大纲生成 Prompt 原型
 - [x] 完成论文大纲生成示例
 - [x] 尝试使用 Python 实现最小原型
+- [x] 支持将生成结果保存为 Markdown 文件
 - [ ] 学习 Hello-Agents 经典范式
 - [ ] 完成引用检查模块示例
 
