@@ -12,7 +12,7 @@ SRC_PATH = PROJECT_ROOT / "src"
 
 sys.path.append(str(SRC_PATH))
 
-from outline_generator import detect_research_direction
+from outline_generator import detect_research_direction, parse_arguments
 
 
 def test_cad_direction():
@@ -44,6 +44,31 @@ def test_general_direction():
     direction = detect_research_direction(topic)
     assert direction == "通用论文写作辅助方向"
 
+def test_parse_arguments_with_topic_only():
+    args = ["LLM", "辅助", "CAD", "智能设计"]
+    topic, output_file = parse_arguments(args)
+
+    assert topic == "LLM 辅助 CAD 智能设计"
+    assert output_file == "generated_outline.md"
+
+
+def test_parse_arguments_with_custom_output():
+    args = ["LLM", "辅助", "CAD", "智能设计", "--output", "cad_outline.md"]
+    topic, output_file = parse_arguments(args)
+
+    assert topic == "LLM 辅助 CAD 智能设计"
+    assert output_file == "cad_outline.md"
+
+
+def test_parse_arguments_missing_output_filename():
+    args = ["LLM", "辅助", "CAD", "智能设计", "--output"]
+
+    try:
+        parse_arguments(args)
+    except ValueError as error:
+        assert str(error) == "Missing filename after --output"
+    else:
+        assert False
 
 if __name__ == "__main__":
     test_cad_direction()
@@ -51,4 +76,7 @@ if __name__ == "__main__":
     test_citation_direction()
     test_literature_direction()
     test_general_direction()
+    test_parse_arguments_with_topic_only()
+    test_parse_arguments_with_custom_output()
+    test_parse_arguments_missing_output_filename()
     print("All tests passed.")
