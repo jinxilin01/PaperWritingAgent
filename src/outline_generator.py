@@ -4,7 +4,7 @@ This script is an early Python prototype of the project. It takes a research
 topic from user input, identifies a rough research direction, prints a
 structured academic paper outline, and saves the result as a Markdown file.
 """
-
+import sys
 
 def detect_research_direction(topic):
     """Detect a rough research direction based on keywords in the topic."""
@@ -163,8 +163,11 @@ def save_outline_to_file(outline, filename="generated_outline.md"):
 
 
 def main():
-    """Read a topic, generate an outline, print it, and save it to a file."""
-    topic = input("请输入研究主题：").strip()
+    """Read a topic from command-line arguments or user input."""
+    if len(sys.argv) > 1:
+        topic = " ".join(sys.argv[1:]).strip()
+    else:
+        topic = input("请输入研究主题：").strip()
 
     if not topic:
         topic = "LLM 辅助 CAD 智能设计"
