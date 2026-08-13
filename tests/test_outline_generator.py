@@ -1,7 +1,8 @@
 """Simple tests for PaperWritingAgent outline generator.
 
 These tests check whether different research topics can be mapped to different
-rough research directions.
+rough research directions, and whether command-line arguments are parsed
+correctly.
 """
 
 import sys
@@ -44,6 +45,7 @@ def test_general_direction():
     direction = detect_research_direction(topic)
     assert direction == "通用论文写作辅助方向"
 
+
 def test_parse_arguments_with_topic_only():
     args = ["LLM", "辅助", "CAD", "智能设计"]
     topic, output_file = parse_arguments(args)
@@ -69,6 +71,7 @@ def test_parse_arguments_missing_output_filename():
         assert str(error) == "Missing filename after --output"
     else:
         assert False
+
 
 if __name__ == "__main__":
     test_cad_direction()
