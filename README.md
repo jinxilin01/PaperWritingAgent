@@ -51,6 +51,22 @@ LLM 辅助 CAD 智能设计
 
 程序会输出论文题目建议、论文结构、章节写作目标、文献补充方向和后续写作建议，并将结果保存到 generated_outline.md。
 
+## 测试说明
+
+当前项目提供了一个简单测试脚本，用于验证不同研究主题是否能够被识别为不同研究方向。
+
+测试文件路径：
+
+tests/test_outline_generator.py
+
+运行方式：
+
+python tests/test_outline_generator.py
+
+如果测试通过，终端会输出：
+
+All tests passed.
+
 ## 当前进度
 
 - [x] 明确项目主题
@@ -63,6 +79,7 @@ LLM 辅助 CAD 智能设计
 - [x] 尝试使用 Python 实现最小原型
 - [x] 支持将生成结果保存为 Markdown 文件
 - [x] 添加 generated_outline_sample.md 示例输出文件
+- [x] 添加方向识别测试脚本
 - [ ] 学习 Hello-Agents 经典范式
 - [ ] 完成引用检查模块示例
 
