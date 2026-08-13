@@ -4,7 +4,37 @@ This script is an early Python prototype of the project. It takes a research
 topic from user input, identifies a rough research direction, prints a
 structured academic paper outline, and saves the result as a Markdown file.
 """
+
 import sys
+
+
+def parse_arguments(args):
+    """Parse command-line arguments.
+
+    Supported usage examples:
+    python src/outline_generator.py
+    python src/outline_generator.py "LLM 辅助 CAD 智能设计"
+    python src/outline_generator.py "LLM 辅助 CAD 智能设计" --output cad_outline.md
+    """
+    topic_parts = []
+    output_file = "generated_outline.md"
+
+    index = 0
+    while index < len(args):
+        current = args[index]
+
+        if current == "--output":
+            if index + 1 >= len(args):
+                raise ValueError("Missing filename after --output")
+            output_file = args[index + 1]
+            index += 2
+        else:
+            topic_parts.append(current)
+            index += 1
+
+    topic = " ".join(topic_parts).strip()
+    return topic, output_file
+
 
 def detect_research_direction(topic):
     """Detect a rough research direction based on keywords in the topic."""
@@ -117,11 +147,11 @@ def generate_outline(topic):
     output = []
     output.append("# PaperWritingAgent 论文大纲生成结果")
     output.append("")
-    output.append(f"## 研究主题")
+    output.append("## 研究主题")
     output.append("")
     output.append(topic)
     output.append("")
-    output.append(f"## 识别方向")
+    output.append("## 识别方向")
     output.append("")
     output.append(direction)
     output.append("")
@@ -163,10 +193,14 @@ def save_outline_to_file(outline, filename="generated_outline.md"):
 
 
 def main():
-    """Read a topic from command-line arguments or user input."""
-    if len(sys.argv) > 1:
-        topic = " ".join(sys.argv[1:]).strip()
-    else:
+    """Read a topic, generate an outline, print it, and save it to a file."""
+    try:
+        topic, output_file = parse_arguments(sys.argv[1:])
+    except ValueError as error:
+        print(f"参数错误：{error}")
+        return
+
+    if not topic:
         topic = input("请输入研究主题：").strip()
 
     if not topic:
@@ -177,8 +211,8 @@ def main():
 
     print(outline)
 
-    save_outline_to_file(outline)
-    print("\n论文大纲已保存到 generated_outline.md")
+    save_outline_to_file(outline, output_file)
+    print(f"\n论文大纲已保存到 {output_file}")
 
 
 if __name__ == "__main__":
