@@ -41,13 +41,17 @@ PaperWritingAgent 是一个计划中的论文写作辅助智能体项目，主�
 - 文件路径：src/outline_generator.py
 - 功能：输入研究主题，生成论文大纲，并保存为 generated_outline.md
 
-运行方式：
+运行方式一：交互式输入
 
 python src/outline_generator.py
 
 运行后，根据提示输入研究主题，例如：
 
 LLM 辅助 CAD 智能设计
+
+运行方式二：命令行参数输入
+
+python src/outline_generator.py "LLM 辅助 CAD 智能设计"
 
 程序会输出论文题目建议、论文结构、章节写作目标、文献补充方向和后续写作建议，并将结果保存到 generated_outline.md。
 
@@ -80,6 +84,7 @@ All tests passed.
 - [x] 支持将生成结果保存为 Markdown 文件
 - [x] 添加 generated_outline_sample.md 示例输出文件
 - [x] 添加方向识别测试脚本
+- [x] 支持命令行参数输入研究主题
 - [ ] 学习 Hello-Agents 经典范式
 - [ ] 完成引用检查模块示例
 
