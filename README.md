@@ -62,6 +62,7 @@ LLM 辅助 CAD 智能设计
 - [x] 完成论文大纲生成示例
 - [x] 尝试使用 Python 实现最小原型
 - [x] 支持将生成结果保存为 Markdown 文件
+- [x] 添加 generated_outline_sample.md 示例输出文件
 - [ ] 学习 Hello-Agents 经典范式
 - [ ] 完成引用检查模块示例
 
